@@ -1,7 +1,7 @@
 {
   "name": "juno_okyo/php-chatfuel-class",
   "description": "A PHP class to generate JSON output for your chatbot (build with Chatfuel)",
-  "homepage": "https://junookyo.blogspot.com/",
+  "homepage": "https://github.com/J2TeaM/php-chatfuel-class",
   "keywords": ["chatbot", "chatfuel", "messenger bot", "facebook bot", "json api"],
   "type": "library",
   "license": "MIT",
