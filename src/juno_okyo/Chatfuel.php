@@ -8,7 +8,12 @@ namespace juno_okyo;
 
 class Chatfuel
 {
-  const VERSION = '1.0.0';
+  const VERSION = '1.0.1';
+
+  const WV_SHARE_BUTTON_HIDE    = 'hide';
+  const WV_HEIGHT_RATIO_COMPACT = 'compact';
+  const WV_HEIGHT_RATIO_TALL    = 'tall';
+  const WV_HEIGHT_RATIO_FULL    = 'full';
 
   protected $response = array();
 
@@ -139,7 +144,7 @@ class Chatfuel
     return $button;
   }
 
-  public function createButtonToURL($title, $url, $setAttributes = NULL)
+  public function createButtonToURL($title, $url, $setAttributes = array(), $messengerExtensions = array())
   {
     if ($this->isURL($url)) {
       $button = array();
@@ -149,6 +154,20 @@ class Chatfuel
       
       if ( ! is_null($setAttributes) && is_array($setAttributes)) {
         $button['set_attributes'] = $setAttributes;
+      }
+
+      if(!is_null($messengerExtensions) && is_array($messengerExtensions) && !empty($messengerExtensions)){
+        $button['messengerExtensions'] = true;
+        
+        $allowedHeights = array(self::WV_HEIGHT_RATIO_COMPACT, self::WV_HEIGHT_RATIO_TALL, self::WV_HEIGHT_RATIO_FULL);
+        if(isset($messengerExtensions['webview_height_ratio']) && in_array($messengerExtensions['webview_height_ratio'], $allowedHeights)){
+          $button['webview_height_ratio'] = $messengerExtensions['webview_height_ratio'];
+        }
+
+        if(isset($messengerExtensions['webview_share_button'])){
+          $button['webview_share_button'] = self::WV_SHARE_BUTTON_HIDE; 
+        }
+
       }
 
       return $button;
